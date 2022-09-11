@@ -71,5 +71,9 @@ header {
     position: absolute;
     margin: 5px;
 }
-
+.cart {
+    position: absolute;
+    right: 5px;
+    margin: 5px;
+}
 

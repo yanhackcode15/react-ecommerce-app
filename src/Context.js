@@ -31,9 +31,9 @@ function ContextProvider(props) {
 
         setPhotos(updatedArray)
     }
-    // toggleFavorite(1)
+   
     return (
-        <Context.Provider value={{photos}}>
+        <Context.Provider value={{photos, toggleFavorite}}>
             {props.children}
         </Context.Provider>
     )
