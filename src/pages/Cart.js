@@ -6,17 +6,20 @@ export default function Cart() {
     const {cartedItems} = React.useContext(Context)
     function displayCartedItems () {
         return cartedItems.map(item=>(
-            <div className="thumbnail-container" key={item.id}>
-                <i class="ri-delete-bin-line"></i>
+            <div className="row" key={item.id}>
+                <i className="ri-delete-bin-line"></i>
                 <img className="thumbnail" src={item.url}/>
-                <div>Price: $7</div>
+                <p>$7</p>
             </div>
         ))
     }
     return (
-        <div>
-            {displayCartedItems()}
-            
-        </div>
+        <main className="cartPage">
+            <h1>Checkout</h1>
+            <div className="cart-items">
+                {displayCartedItems()}
+            </div>
+            <h2>{`Total: $${7*cartedItems.length}`}</h2>
+        </main>
     )
 }
