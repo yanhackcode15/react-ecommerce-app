@@ -1,10 +1,12 @@
 import React from "react"
 import getClassName from "../utilities/util"
 import {Context} from "../../src/Context"
-//icon hover
+//add to cart will add an item to the cart page
+//context provider carted items, update carted items when added to cart icon toggles
+//render carteditems on cart page
 
 export default function Image({image, index}){
-    const {toggleFavorite} = React.useContext(Context)
+    const {toggleFavorite, cartedItems, setCartedItems} = React.useContext(Context)
     const [addedToCart, setAddedToCart] = React.useState(false)
     const [isHovered, setIsHovered] = React.useState(false)
     function toggleIcon(fav){
@@ -42,6 +44,19 @@ export default function Image({image, index}){
         }
     }
 
+    React.useEffect(()=>{
+        setCartedItems(prev=>{
+            if (addedToCart){
+                return [...prev, image]
+            }
+            else {
+                return prev.filter(img=>img.index!==image.index)
+
+            }
+        })
+    }, [addedToCart])
+
+    console.log('carted items', cartedItems)
     return (
         <div className={`grid-image ${getClassName(index)}`} onMouseOver={hoverOn} onMouseOut={hoverOff}>
             {showFavoriteIcons()}
