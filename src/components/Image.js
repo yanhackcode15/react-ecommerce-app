@@ -8,7 +8,7 @@ import {Context} from "../../src/Context"
 
 export default function Image({image, index}){
     const {toggleFavorite} = React.useContext(Context)
-
+    const [addedToCart, setAddedToCart] = React.useState(false)
     function toggleIcon(fav){
         if (fav) {
             return 'fill'
@@ -17,13 +17,16 @@ export default function Image({image, index}){
             return 'line'
         }
     }
+    function toggleAddToCart(){
+        setAddedToCart(prev=>!prev)
+    }
 
 
 
     return (
         <div className={`grid-image ${getClassName(index)}`}>
             <i className={`heart ri-heart-${toggleIcon(image.isFavorite)}`} onClick={()=>toggleFavorite(image.id)} ></i>
-            <i className={`cart ri-shopping-cart-${toggleIcon(image.isFavorite)}`} onClick={()=>toggleFavorite(image.id)} ></i>
+            <i className={`cart ri-shopping-cart-${toggleIcon(addedToCart)}`} onClick={()=>toggleAddToCart()} ></i>
             <img className="photo" src={image.url} />
             
         </div>
