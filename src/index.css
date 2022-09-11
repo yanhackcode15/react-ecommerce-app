@@ -70,10 +70,13 @@ header {
 .heart {
     position: absolute;
     margin: 5px;
+    color: var(--black);
 }
 .cart {
     position: absolute;
     right: 5px;
     margin: 5px;
+    color: var(--black);
+
 }
 
