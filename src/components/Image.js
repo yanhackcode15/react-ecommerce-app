@@ -6,7 +6,7 @@ import {Context} from "../../src/Context"
 export default function Image({image, index}){
     const {toggleFavorite} = React.useContext(Context)
     const [addedToCart, setAddedToCart] = React.useState(false)
-    const [hover, setHover] = React.useState(false)
+    const [isHovered, setIsHovered] = React.useState(false)
     function toggleIcon(fav){
         if (fav) {
             return 'fill'
@@ -21,28 +21,32 @@ export default function Image({image, index}){
     }
     
     function hoverOn(){
-        setHover(true)
+        setIsHovered(true)
     }
 
     function hoverOff(){
-        setHover(false)
+        setIsHovered(false)
     }
 
+    function showFavoriteIcons(){
+        if (isHovered || image.isFavorite ){
+            return (<i className={`heart ri-heart-${toggleIcon(image.isFavorite)}`} 
+                    onClick={()=>toggleFavorite(image.id)}></i>)
+        }
+
+    }
+    function showCartIcons(){
+        if (isHovered || addedToCart){
+            return (<i className={`cart ri-shopping-cart-${toggleIcon(addedToCart)}`} 
+                onClick={()=>toggleAddToCart()}></i>)
+        }
+    }
 
     return (
-        <div className={`grid-image ${getClassName(index)}`}>
-            {hover&&<i 
-            className={`heart ri-heart-${toggleIcon(image.isFavorite)}`} 
-            onClick={()=>toggleFavorite(image.id)}
-            >
-            </i>}
-            {hover&&<i 
-            className={`cart ri-shopping-cart-${toggleIcon(addedToCart)}`} 
-            onClick={()=>toggleAddToCart()} 
-            >
-            </i>}
-            
-            <img className="photo" src={image.url} onMouseOver={hoverOn} onMouseOut={hoverOff}/>
+        <div className={`grid-image ${getClassName(index)}`} onMouseOver={hoverOn} onMouseOut={hoverOff}>
+            {showFavoriteIcons()}
+            {showCartIcons()}
+            <img className="photo" src={image.url}/>
             
         </div>
     )
