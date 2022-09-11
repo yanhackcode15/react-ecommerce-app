@@ -25,6 +25,8 @@ export default function Cart() {
                 {displayCartedItems()}
             </div>
             <h2>{`Total: $${7*cartedItems.length}`}</h2>
+            <button className="order-button">Place Order</button>
+        
         </main>
     )
 }
