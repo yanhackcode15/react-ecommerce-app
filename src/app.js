@@ -14,7 +14,7 @@ export default function App() {
                 <Header />
                 <Routes>
                     <Route path="cart" element={<Cart />}></Route>
-                    <Route path="/" element={<Photos />}></Route>
+                    <Route path="" element={<Photos />}></Route>
                     <Route path="confirmation" element={<Confirmation />}></Route>
 
                 </Routes>
