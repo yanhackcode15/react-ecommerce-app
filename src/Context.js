@@ -21,9 +21,9 @@ function ContextProvider(props) {
         .catch(error=>console.error("error fetching", error))
     },[])
     
-    function toggleFavorite(id) {
+    function toggleFavorite(image) {
         const updatedArray = photos.map(photo=>{
-            if(photo.id===id){
+            if(photo.id===image.id){
                 return {...photo, isFavorite:!photo.isFavorite}
             }
             else {
@@ -33,15 +33,19 @@ function ContextProvider(props) {
 
         setPhotos(updatedArray)
     }
-
-    function removeFromCart(id){
+    function addToCart(image){
         setCartedItems(prev=>{
-            return prev.filter(item=>id!==item.id)
+            return [...prev, image] 
+        })
+    }
+    function removeFromCart(image){
+        setCartedItems(prev=>{
+            return prev.filter(item=>image.id!==item.id)
         })
     }
    
     return (
-        <Context.Provider value={{photos, toggleFavorite, cartedItems, setCartedItems, removeFromCart}}>
+        <Context.Provider value={{photos, toggleFavorite, cartedItems, setCartedItems, addToCart, removeFromCart}}>
             {props.children}
         </Context.Provider>
     )

@@ -1,27 +1,27 @@
 import React from "react"
 import {Context} from "../Context"
+import CartItem from "../components/CartItem"
 
 export default function Cart() {
-    const {cartedItems, setCartedItems, removeFromCart} = React.useContext(Context)
+    const {cartedItems, setCartedItems} = React.useContext(Context)
     
-    function displayCartedItems () {
-        return cartedItems.map(item=>(
-            <div className="row" key={item.id}>
-                <i className="ri-delete-bin-line" onClick={()=>removeFromCart(item.id)}></i>
-                <img className="thumbnail" src={item.url}/>
-                <p>$7</p>
-            </div>
-        ))
+    function placeOrder() {
+        setCartedItems([])
+    }
+
+
+    function displayOrderStatus(){
+        return null
     }
     return (
         <main className="cartPage">
             <h1>Checkout</h1>
             <div className="cart-items">
-                {displayCartedItems()}
+                {cartedItems.map(item=>(<CartItem item={item} />
+        ))}
             </div>
             <h2>{`Total: $${7*cartedItems.length}`}</h2>
-            <button className="order-button">Place Order</button>
-        
+            {cartedItems.length?<button className="order-button" onClick={placeOrder}>Place Order</button>: <h2>Add something to the cart...</h2>}
         </main>
     )
 }

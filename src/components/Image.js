@@ -1,26 +1,10 @@
 import React from "react"
 import getClassName from "../utilities/util"
 import {Context} from "../../src/Context"
-//add to cart will add an item to the cart page
-//context provider carted items, update carted items when added to cart icon toggles
-//render carteditems on cart page
 
 export default function Image({image, index}){
-    const {toggleFavorite, cartedItems, setCartedItems} = React.useContext(Context)
-    const [addedToCart, setAddedToCart] = React.useState(false)
+    const {toggleFavorite, addToCart, removeFromCart, cartedItems } = React.useContext(Context)
     const [isHovered, setIsHovered] = React.useState(false)
-    function toggleIcon(fav){
-        if (fav) {
-            return 'fill'
-        }
-        else {
-            return 'line'
-        }
-    }
-
-    function toggleAddToCart(){
-        setAddedToCart(prev=>!prev)
-    }
     
     function hoverOn(){
         setIsHovered(true)
@@ -32,37 +16,25 @@ export default function Image({image, index}){
 
     function showFavoriteIcons(){
         if (isHovered || image.isFavorite ){
-            return (<i className={`heart ri-heart-${toggleIcon(image.isFavorite)}`} 
-                    onClick={()=>toggleFavorite(image.id)}></i>)
+            return (<i className={`heart ri-heart-${image.isFavorite?"fill":"line"}`} 
+                    onClick={()=>toggleFavorite(image)}></i>)
         }
 
     }
     function showCartIcons(){
-        if (isHovered || addedToCart){
-            return (<i className={`cart ri-shopping-cart-${toggleIcon(addedToCart)}`} 
-                onClick={()=>toggleAddToCart()}></i>)
+        if (isHovered || cartedItems.find(item=>image.id===item.id)){
+            return (<i className={`cart ri-shopping-cart-${cartedItems.find(item=>image.id===item.id)?"fill":"line"}`} 
+                onClick={()=>{
+                    cartedItems.find(item=>image.id===item.id)?removeFromCart(image):addToCart(image)
+                }}></i>)
         }
     }
 
-    React.useEffect(()=>{
-        setCartedItems(prev=>{
-            if (addedToCart){
-                return [...prev, image]
-            }
-            else {
-                return prev.filter(img=>img.index!==image.index)
-
-            }
-        })
-    }, [addedToCart])
-
-    console.log('carted items', cartedItems)
     return (
         <div className={`grid-image ${getClassName(index)}`} onMouseOver={hoverOn} onMouseOut={hoverOff}>
             {showFavoriteIcons()}
             {showCartIcons()}
-            <img className="photo" src={image.url}/>
-            
+            <img className="photo" src={image.url}/>      
         </div>
     )
 }
