@@ -1,14 +1,9 @@
 import React from "react"
 import {Context} from "../Context"
-{/* <i class="ri-delete-bin-line"></i> */}
 
 export default function Cart() {
-    const {cartedItems, setCartedItems} = React.useContext(Context)
-    function removeFromCart(id){
-        setCartedItems(prev=>{
-            return prev.filter(item=>id!==item.id)
-        })
-    }
+    const {cartedItems, setCartedItems, removeFromCart} = React.useContext(Context)
+    
     function displayCartedItems () {
         return cartedItems.map(item=>(
             <div className="row" key={item.id}>

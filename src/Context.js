@@ -33,9 +33,15 @@ function ContextProvider(props) {
 
         setPhotos(updatedArray)
     }
+
+    function removeFromCart(id){
+        setCartedItems(prev=>{
+            return prev.filter(item=>id!==item.id)
+        })
+    }
    
     return (
-        <Context.Provider value={{photos, toggleFavorite, cartedItems, setCartedItems}}>
+        <Context.Provider value={{photos, toggleFavorite, cartedItems, setCartedItems, removeFromCart}}>
             {props.children}
         </Context.Provider>
     )
