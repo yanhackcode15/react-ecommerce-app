@@ -1,5 +1,5 @@
 import React from "react"
-import {BrowserRouter, Route, Routes, Link} from "react-router-dom"
+import {BrowserRouter, HashRouter, Route, Routes, Link} from "react-router-dom"
 import Header from "./components/Header"
 import Photos from "./pages/Photos"
 import Cart from "./pages/Cart"
@@ -9,7 +9,7 @@ import Confirmation from "./pages/Confirmation"
 
 export default function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div>
                 <Header />
                 <Routes>
@@ -19,6 +19,6 @@ export default function App() {
 
                 </Routes>
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
